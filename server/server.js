@@ -1,6 +1,7 @@
 var express = require("express");
 var { graphqlHTTP } = require("express-graphql");
 var { buildSchema } = require("graphql");
+var cors = require("cors");
 
 const PEOPLE = new Map();
 const POSTS = new Map();
@@ -73,6 +74,7 @@ const rootValue = {
 };
 
 var app = express();
+app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
