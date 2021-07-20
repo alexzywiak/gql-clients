@@ -1,12 +1,33 @@
+import { useQuery } from "urql";
 import "./App.css";
 import Post from "./Post";
-import postData from "./postsData.json";
+
+const PostsQuery = `
+  query GetPosts {
+    posts {
+      id
+      body
+      author {
+        firstName
+        lastName
+      }
+    }
+  }
+`;
 
 function App() {
-  const { data } = postData;
+  const [result] = useQuery({
+    query: PostsQuery,
+  });
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
   return (
     <ul className="list-group content">
-      {data?.posts?.map((post) => post && <Post key={post.id} post={post} />)}
+      {data?.posts?.map(
+        (post: any) => post && <Post key={post.id} post={post} />
+      )}
     </ul>
   );
 }
