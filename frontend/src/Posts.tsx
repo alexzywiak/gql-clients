@@ -1,33 +1,12 @@
-import { gql, useQuery } from "@apollo/client";
 import "./App.css";
 import Post from "./Post";
-import { GetPosts, GetPosts_posts } from "./__generated__/GetPosts";
-
-const POSTS = gql`
-  query GetPosts {
-    posts {
-      id
-      body
-      author {
-        firstName
-        lastName
-      }
-    }
-  }
-`;
+import postData from "./postsData.json";
 
 function App() {
-  const { loading, error, data } = useQuery<GetPosts>(POSTS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
+  const { data } = postData;
   return (
     <ul className="list-group content">
-      {data?.posts?.map(
-        (post: GetPosts_posts | null) =>
-          post && <Post key={post.id} post={post} />
-      )}
+      {data?.posts?.map((post) => post && <Post key={post.id} post={post} />)}
     </ul>
   );
 }

@@ -1,0 +1,22 @@
+{
+  "data": {
+    "posts": [
+      {
+        "id": "1",
+        "body": "Hello world",
+        "author": {
+          "firstName": "John",
+          "lastName": "Doe"
+        }
+      },
+      {
+        "id": "2",
+        "body": "Hi, planet!",
+        "author": {
+          "firstName": "Jane",
+          "lastName": "Doe"
+        }
+      }
+    ]
+  }
+}

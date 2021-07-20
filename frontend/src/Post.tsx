@@ -1,7 +1,5 @@
-import { GetAuthors_authors_posts } from "./__generated__/GetAuthors";
-
 interface Props {
-  post: GetAuthors_authors_posts;
+  post: any;
 }
 
 function Post({ post }: Props) {

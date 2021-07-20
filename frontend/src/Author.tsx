@@ -1,8 +1,7 @@
 import Post from "./Post";
-import { GetAuthors_authors } from "./__generated__/GetAuthors";
 
 interface Props {
-  author: GetAuthors_authors;
+  author: any;
 }
 
 function Author({ author }: Props) {
@@ -14,7 +13,7 @@ function Author({ author }: Props) {
       <div>Posts:</div>
       <ul className="list-group">
         {author.posts &&
-          author.posts.map((post) => {
+          author.posts.map((post: any) => {
             return post && <Post key={post.id} post={post} />;
           })}
       </ul>
