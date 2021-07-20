@@ -1,29 +1,9 @@
-import { useQuery } from "urql";
 import "./App.css";
 import Author from "./Author";
-
-const AuthorsQuery = `
-  query GetAuthors {
-    authors {
-      id
-      firstName
-      lastName
-      posts {
-        id
-        body
-        author {
-          firstName
-          lastName
-        }
-      }
-    }
-  }
-`;
+import { useGetAuthorsQuery } from "./generated/graphql";
 
 function App() {
-  const [result, reexecuteQuery] = useQuery({
-    query: AuthorsQuery,
-  });
+  const [result] = useGetAuthorsQuery();
 
   const { data, fetching, error } = result;
 
@@ -33,7 +13,7 @@ function App() {
   return (
     <ul className="list-group content">
       {data?.authors?.map(
-        (author: any) => author && <Author key={author.id} author={author} />
+        (author) => author && <Author key={author.id} author={author} />
       )}
     </ul>
   );

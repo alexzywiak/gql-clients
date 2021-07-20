@@ -1,17 +1,17 @@
 type Query {
   posts: [Post]
   post(id: ID): Post
-  authors: [Person]
-  author(id: ID): Person
+  authors: [Author]
+  author(id: ID): Author
 }
 
 type Post {
   id: ID
-  author: Person
+  author: Author
   body: String
 }
 
-type Person {
+type Author {
   id: ID
   posts: [Post]
   firstName: String

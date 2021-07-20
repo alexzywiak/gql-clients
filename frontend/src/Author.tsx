@@ -1,7 +1,8 @@
+import { Author as AuthorType } from "./generated/graphql";
 import Post from "./Post";
 
 interface Props {
-  author: any;
+  author: AuthorType;
 }
 
 function Author({ author }: Props) {

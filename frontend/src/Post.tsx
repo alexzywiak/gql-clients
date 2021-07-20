@@ -1,5 +1,7 @@
+import { Post as PostType } from "./generated/graphql";
+
 interface Props {
-  post: any;
+  post: PostType;
 }
 
 function Post({ post }: Props) {
