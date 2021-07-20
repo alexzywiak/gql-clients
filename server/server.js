@@ -1,6 +1,7 @@
 var express = require("express");
 var { graphqlHTTP } = require("express-graphql");
 var { buildSchema } = require("graphql");
+var { importSchema } = require("graphql-import");
 var cors = require("cors");
 
 const PEOPLE = new Map();
@@ -42,31 +43,8 @@ const initializeData = () => {
 
 initializeData();
 
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  type Query {
-    posts: [Post]
-    post(id: ID): Post
-    authors: [Person]
-    author(id: ID): Person
-  }
-
-  type Post {
-    id: ID
-    author: Person
-    body: String
-  }
-
-  type Person {
-    id: ID
-    posts: [Post]
-    firstName: String
-    lastName: String
-  }
-`);
-
 // The root provides a resolver function for each API endpoint
-const rootValue = {
+const resolvers = {
   posts: () => POSTS.values(),
   post: ({ id }) => POSTS.get(id),
   authors: () => PEOPLE.values(),
@@ -78,8 +56,8 @@ app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema,
-    rootValue,
+    schema: buildSchema(importSchema("**/*.graphql")),
+    rootValue: resolvers,
     graphiql: true,
   })
 );
