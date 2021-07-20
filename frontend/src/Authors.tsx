@@ -1,9 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import "./App.css";
 import Author from "./Author";
+import { GetAuthors_authors, GetAuthors } from "./__generated__/GetAuthors";
 
 const AUTHORS = gql`
-  {
+  query GetAuthors {
     authors {
       id
       firstName
@@ -21,16 +22,17 @@ const AUTHORS = gql`
 `;
 
 function App() {
-  const { loading, error, data } = useQuery(AUTHORS);
+  const { loading, error, data } = useQuery<GetAuthors>(AUTHORS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   return (
     <ul className="list-group content">
-      {data.authors.map((author) => {
-        return <Author key={author.id} author={author} />;
-      })}
+      {data?.authors?.map(
+        (author: GetAuthors_authors | null) =>
+          author && <Author key={author.id} author={author} />
+      )}
     </ul>
   );
 }
